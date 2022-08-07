@@ -1,0 +1,106 @@
+{
+  "name": "auto-commit-message-prefix",
+  "displayName": "Auto Commit Message Prefix",
+  "description": "A VS Code extension to extract substring from git branch name (e.g., Jira issue) and insert it as prefix to commit message.",
+  "publisher": "Peter Frandsen",
+  "author": {
+    "name": "Peter Frandsen"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/pfrandsen/auto-commit-message-prefix#readme",
+  "bugs": "https://github.com/pfrandsen/auto-commit-message-prefix/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pfrandsen/auto-commit-message-prefix"
+  },
+  "keywords": [
+    "git",
+    "auto",
+    "generate",
+    "commit",
+    "message",
+    "prefix",
+    "vs-code",
+    "vscode",
+    "productivity",
+    "jira"
+  ],
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "SCM Providers"
+  ],
+  "activationEvents": [
+    "onCommand:auto-commit-message-prefix.autoPrefix"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "auto-commit-message-prefix.autoPrefix",
+        "title": "Auto Commit Message Prefix",
+        "icon": {
+          "dark": "images/prefix.svg",
+          "light": "images/prefix-light.svg"
+        }
+      }
+    ],
+    "menus": {
+      "scm/title": [
+        {
+          "command": "auto-commit-message-prefix.autoPrefix",
+          "when": "scmProvider == git",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Auto Commit Message Prefix",
+      "properties": {
+        "autocommitmessageprefix.pattern": {
+          "type": ["string", "null"],
+          "default": "^[^\\/]*\\/([a-zA-Z]+\\-\\d+).*",
+          "description": "Specifies the regular expression used to extract substring from branch name used for commit message prefix. The first match group will be used.\nIf no pattern is specified extension will use: ^[^\\\\/]*\\\\/([a-zA-Z]+\\\\-\\\\d+).*\nIf branch name is e.g., 'feature/JIRA-42-abc' the default pattern matches 'JIRA-42'"
+        },
+        "autocommitmessageprefix.prefix": {
+          "type": ["string", "null"],
+          "default": null,
+          "description": "Fixed prefix text added in front of the matched text from the branch name."
+        },
+        "autocommitmessageprefix.postfix": {
+          "type": ["string", "null"],
+          "default": null,
+          "description": "Fixed postfix text added after the matched text from the branch name."
+        },
+        "autocommitmessageprefix.spaceafter": {
+          "type": ["boolean"],
+          "default": true,
+          "description": "Make sure that there is a whitespace between prefix and commit message. Will not insert space if prefix ends with whitespace or commit message starts with whitespace."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.69.0",
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "eslint": "^8.20.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "typescript": "^4.7.4",
+    "@vscode/test-electron": "^2.1.5"
+  }
+}
