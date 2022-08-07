@@ -24,29 +24,30 @@ function _validateFoundRepos(git: API) {
  * Run auto prefix logic for the first repository in the workspace.
  */
 function _handlePrefix(git: API) {
-	let pattern = '^[^\\/]*\\/([a-zA-Z]+\\-\\d+).*';
-	let pre = '';
-	let post = '';
-	let ensureSpace = true;
+	let pattern:any = '^[^\\/]*\\/([a-zA-Z]+\\-\\d+).*';
+	let pre:any = '';
+	let post:any = '';
+	let ensureSpace:any = true;
 	const config = vscode.workspace.getConfiguration('autocommitmessageprefix');
 	if (config.has('pattern')) {
 		console.log('pattern', `'${config.get('pattern')}'`);
 		const p = config.get('pattern')!;
-		pattern = p && p.length > 0 ? p : pattern;
+		pattern = p !== null ? p : pattern;
 	}
 	if (config.has('prefix')) {
 		console.log('prefix', `'${config.get('prefix')}'`);
 		const p = config.get('prefix')!;
-		pre = p && p.length > 0 ? p : pre;
+		pre = p !== null ? p : pre;
 	}
 	if (config.has('postfix')) {
 		console.log('postfix', `'${config.get('postfix')}'`);
 		const p = config.get('postfix')!;
-		post = p && p.length > 0 ? p : post;
+		post = p !== null ? p : post;
 	}
 	if (config.has('spaceafter')) {
 		console.log('spaceafter', `'${config.get('spaceafter')}'`);
-		ensureSpace = config.get('spaceafter')!;
+		const s = config.get('spaceafter')!;
+		ensureSpace = s !== null ? s : true;
 	}
 
 	const regex = new RegExp(pattern);
