@@ -30,31 +30,22 @@ function _handlePrefix(git: API) {
 	let ensureSpace:any = true;
 	const config = vscode.workspace.getConfiguration('autocommitmessageprefix');
 	if (config.has('pattern')) {
-		console.log('pattern', `'${config.get('pattern')}'`);
-		const p = config.get('pattern')!;
-		pattern = p !== null ? p : pattern;
+		pattern = config.get('pattern') !== null ? config.get('pattern') : pattern;
 	}
 	if (config.has('prefix')) {
-		console.log('prefix', `'${config.get('prefix')}'`);
-		const p = config.get('prefix')!;
-		pre = p !== null ? p : pre;
+		pre = config.get('prefix') !== null ? config.get('prefix') : pre;
 	}
 	if (config.has('postfix')) {
-		console.log('postfix', `'${config.get('postfix')}'`);
-		const p = config.get('postfix')!;
-		post = p !== null ? p : post;
+		post = config.get('postfix') !== null ? config.get('postfix') : post;
 	}
 	if (config.has('spaceafter')) {
-		console.log('spaceafter', `'${config.get('spaceafter')}'`);
-		const s = config.get('spaceafter')!;
-		ensureSpace = s !== null ? s : true;
+		ensureSpace = config.get('spaceafter') !== null ? config.get('spaceafter') : true;
 	}
 
 	const regex = new RegExp(pattern);
 	const repository = git.repositories[0];
 	const currentCommitMessage = getCommitMsg(repository);
 	const branch = repository.state.HEAD?.name;
-	console.log('branch...', branch);
 	if (branch) {
 		const found = branch.match(regex);
 		if (found && found.length > 1) {
@@ -65,7 +56,6 @@ function _handlePrefix(git: API) {
 				console.log('prefix', `${msgPrefix} is aready prefix in commit message`);
 			} else {
 				const separator = ensureSpace && (msgPrefix.match(/\s+$/) === null) && (currentCommitMessage === currentCommitMessage.trimStart()) ? ' ' : '';
-				console.log('separator', `'${separator}'`);
 				setCommitMsg(repository, `${msgPrefix}${separator}${currentCommitMessage}`);
 			}
 		} else {
