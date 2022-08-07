@@ -67,23 +67,20 @@ function _handlePrefix(git: API) {
 }
 
 /**
- * Choose the git repository and apply auto prefix from branch.
+ * Choose the git repository and apply auto prefix from branch name.
  */
 async function _chooseRepoForAutoPrefix() {
-	const git = getGitExtension()!;  // ! return value is not undefined
+	const git = getGitExtension()!;  // ! tell compiler return value is not undefined
 	_validateFoundRepos(git);
 	vscode.commands.executeCommand("workbench.view.scm");
 	_handlePrefix(git);
 }
 
 export function activate(context: vscode.ExtensionContext) {
-	console.log('extension "auto-commit-message-prefix" is now active!');
-
 	const disposable = vscode.commands.registerCommand(
 		"auto-commit-message-prefix.autoPrefix",
 		_chooseRepoForAutoPrefix
 	);
-
 	context.subscriptions.push(disposable);
 }
 
