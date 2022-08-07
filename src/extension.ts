@@ -31,15 +31,18 @@ function _handlePrefix(git: API) {
 	const config = vscode.workspace.getConfiguration('autocommitmessageprefix');
 	if (config.has('pattern')) {
 		console.log('pattern', `'${config.get('pattern')}'`);
-		pattern = config.get('pattern')!;
+		const p = config.get('pattern')!;
+		pattern = p && p.length > 0 ? p : pattern;
 	}
 	if (config.has('prefix')) {
 		console.log('prefix', `'${config.get('prefix')}'`);
-		pre = config.get('prefix')!;
+		const p = config.get('prefix')!;
+		pre = p && p.length > 0 ? p : pre;
 	}
 	if (config.has('postfix')) {
 		console.log('postfix', `'${config.get('postfix')}'`);
-		post = config.get('postfix')!;
+		const p = config.get('postfix')!;
+		post = p && p.length > 0 ? p : post;
 	}
 	if (config.has('spaceafter')) {
 		console.log('spaceafter', `'${config.get('spaceafter')}'`);
