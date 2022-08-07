@@ -1,6 +1,7 @@
 node_modules
 build
 out
+*.vsix
 npm-debug.log
 .nyc
 .env
