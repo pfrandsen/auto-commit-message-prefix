@@ -11,6 +11,6 @@ Click the extension's **button** in the Git pane will add a substring from the b
 This extension contributes the following settings:
 
 * `autocommitmessageprefix.pattern`: Used to override the default regular expression used for matching substring in branch name.
-* `autocommitmessageprefix.prefix`: Fixed prefix text added in front of the matched text from the branch name.
-* `autocommitmessageprefix.postfix`: Fixed postfix text added after the matched text from the branch name.
+* `autocommitmessageprefix.prefix`: Fixed prefix text (default '') added in front of the matched text from the branch name.
+* `autocommitmessageprefix.postfix`: Fixed postfix text (default '') added after the matched text from the branch name.
 * `autocommitmessageprefix.spaceafter`: If true (default) the extension will insert a space if there is no whitespace between prefix and commit message.
