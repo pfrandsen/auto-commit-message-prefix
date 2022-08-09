@@ -4,7 +4,7 @@ A VS Code extension to extract substring from git branch name (e.g., Jira issue)
 ## Features
 
 Click the extension's **button** in the Git pane will add a substring from the branch name as prefix in the commit message input field. The default regular expression used to find the substring uses the pattern in Bitbucket/Jira branch names to extract the Jira issue identifier.
-* Commit messages for branch "feature/JIRA-42-abc" will get "JIRA-42 " as prefix when the extensions Git pane button is clicked.
+* Commit message for branch "feature/JIRA-42-abc" will get "JIRA-42 " as prefix when the extensions Git pane button is clicked and the default configuration is used.
 
 ## Extension Settings
 
