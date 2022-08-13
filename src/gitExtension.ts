@@ -29,6 +29,7 @@ export function setCommitMsg(repository: Repository, msg: string) {
 }
 
 /**
+ * Get Git extension.
  * 
  * @returns VS Code's built in Git extension
  */

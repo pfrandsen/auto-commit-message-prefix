@@ -7,93 +7,63 @@ import * as vscode from "vscode";
 import { API } from "./api/git";
 import { getGitExtension, getCommitMsg, setCommitMsg } from "./gitExtension";
 
-function _validateFoundRepos(git: API) {
-	let msg = "";
-	if (!git) {
-		msg = "Unable to load Git Extension.";
-	} else if (git.repositories.length === 0) {
-		msg = "No git repository found. Please open a repository or run `git init` and try again.";
-	}
-	if (msg) {
-		vscode.window.showErrorMessage(msg);
-		throw new Error(msg);
-	}
-}
-
 /**
  * Run auto prefix logic for the first repository in the workspace.
  */
-function _handlePrefix(git: API) {
-	let pattern:any = '^[^\\/]*\\/([a-zA-Z]+\\-\\d+).*';
-	let pre:any = '';
-	let post:any = '';
-	let ensureSpace:any = true;
+function _setCommitPrefix(git: API) {
+	// helper to get default value or configuration overrides
 	const config = vscode.workspace.getConfiguration('autocommitmessageprefix');
-	if (config.has('pattern')) {
-		console.log('pattern', `'${config.get('pattern')}'`);
-		const p = config.get('pattern')!;
-		pattern = p !== null ? p : pattern;
+	function getValue(param:string, deflt:any): any {
+		return config.has(param) && config.get(param) !== null ? config.get(param) : deflt;
 	}
-	if (config.has('prefix')) {
-		console.log('prefix', `'${config.get('prefix')}'`);
-		const p = config.get('prefix')!;
-		pre = p !== null ? p : pre;
-	}
-	if (config.has('postfix')) {
-		console.log('postfix', `'${config.get('postfix')}'`);
-		const p = config.get('postfix')!;
-		post = p !== null ? p : post;
-	}
-	if (config.has('spaceafter')) {
-		console.log('spaceafter', `'${config.get('spaceafter')}'`);
-		const s = config.get('spaceafter')!;
-		ensureSpace = s !== null ? s : true;
-	}
-
+	const pattern:any = getValue('pattern', '^[^\\/]*\\/([a-zA-Z]+\\-\\d+).*');
+	const pre:any = getValue('prefix', '');
+	const post:any = getValue('postfix', '');
+	const ensureSpace:any = getValue('spaceafter', true);
+	
+	// find pattern in branch name
 	const regex = new RegExp(pattern);
 	const repository = git.repositories[0];
 	const currentCommitMessage = getCommitMsg(repository);
 	const branch = repository.state.HEAD?.name;
-	console.log('branch...', branch);
-	if (branch) {
-		const found = branch.match(regex);
-		if (found && found.length > 1) {
-			const jira = found[1];
-			console.log(jira);
-			const msgPrefix = `${pre}${jira}${post}`;
-			if (currentCommitMessage.startsWith(msgPrefix)) {
-				console.log('prefix', `${msgPrefix} is aready prefix in commit message`);
-			} else {
-				const separator = ensureSpace && (msgPrefix.match(/\s+$/) === null) && (currentCommitMessage === currentCommitMessage.trimStart()) ? ' ' : '';
-				console.log('separator', `'${separator}'`);
-				setCommitMsg(repository, `${msgPrefix}${separator}${currentCommitMessage}`);
-			}
-		} else {
-			console.log(`pattern '${regex}' not found or match group not defined`);
-		}
-	} else{
+	if (!branch) {
 		console.log('no branch found');
+		return;
+	}
+	const found = branch.match(regex);
+	if (!found || found.length <  2) {
+		console.log(`pattern '${pattern}' not found or match group not defined`);
+		return;
+	}
+	const jira = found[1];
+	const msgPrefix = `${pre}${jira}${post}`;
+	if (currentCommitMessage.startsWith(msgPrefix)) {
+		console.log('prefix', `${msgPrefix} is aready prefix in commit message`);
+	} else {
+		const separator = ensureSpace && (msgPrefix.match(/\s+$/) === null) && (currentCommitMessage === currentCommitMessage.trimStart()) ? ' ' : '';
+		setCommitMsg(repository, `${msgPrefix}${separator}${currentCommitMessage}`);
 	}
 }
 
 /**
- * Choose the git repository and apply auto prefix from branch.
+ * Get the git repository and apply auto prefix from branch name.
  */
-async function _chooseRepoForAutoPrefix() {
-	const git = getGitExtension()!;  // ! return value is not undefined
-	_validateFoundRepos(git);
+async function _getRepoAndSetCommitPrefix() {
+	const git = getGitExtension()!;  // ! tell compiler return value is not undefined
+	if (!(git?.repositories?.length > 0)) {
+		const msg = "No git repository found. Please open a repository or run `git init` and try again.";
+		vscode.window.showErrorMessage(msg);
+		throw new Error(msg);
+	}
 	vscode.commands.executeCommand("workbench.view.scm");
-	_handlePrefix(git);
+	_setCommitPrefix(git);
 }
 
 export function activate(context: vscode.ExtensionContext) {
-	console.log('extension "auto-commit-message-prefix" is now active!');
-
 	const disposable = vscode.commands.registerCommand(
 		"auto-commit-message-prefix.autoPrefix",
-		_chooseRepoForAutoPrefix
+		_getRepoAndSetCommitPrefix
 	);
-
 	context.subscriptions.push(disposable);
 }
 
