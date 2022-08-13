@@ -19,9 +19,7 @@ This extension contributes the following settings:
 
 Go to the Marketplace link below and click the _Install_ button.
 
-<div align="center">
 [VS Code Marketplace - Auto Commit Message Prefix](https://marketplace.visualstudio.com/items?itemName=prandsen.auto-commit-message-prefix)
-</div>
 
 ## Usage
 
