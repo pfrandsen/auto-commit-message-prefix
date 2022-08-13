@@ -2,7 +2,7 @@
   "name": "auto-commit-message-prefix",
   "displayName": "Auto Commit Message Prefix",
   "description": "A VS Code extension to extract substring from git branch name (e.g., Jira issue) and insert it as prefix to commit message.",
-  "publisher": "Peter Frandsen",
+  "publisher": "prandsen",
   "author": {
     "name": "Peter Frandsen"
   },
