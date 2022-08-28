@@ -47,6 +47,13 @@
         }
       }
     ],
+    "keybindings": [
+      {
+          "command": "auto-commit-message-prefix.autoPrefix",
+          "key": "ctrl+alt+p",
+          "mac": "shift+cmd+p"
+      }
+    ],
     "menus": {
       "scm/title": [
         {
