@@ -15,6 +15,14 @@ This extension contributes the following settings:
 * `autocommitmessageprefix.postfix`: Fixed postfix text (default '') added after the matched text from the branch name.
 * `autocommitmessageprefix.spaceafter`: If true (default) the extension will insert a space if there is no whitespace between prefix and commit message.
 
+### Keyboard Shortcut
+
+The extension can be activated using
+* Linux/Wondows: <kbd>Control</kbd>+<kbd>Alt</kbd>+<kbd>p</kbd>
+* Mac: <kbd>Shift</kbd>+<kbd>Command</kbd>+<kbd>p</kbd>
+
+To change shortcut: File - Preferences - Keyboard Shortcuts
+
 ## Installation
 
 Go to the Marketplace link below and click the _Install_ button.
