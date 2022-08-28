@@ -18,10 +18,12 @@ This extension contributes the following settings:
 ### Keyboard Shortcut
 
 The extension can be activated using
-* Linux/Wondows: <kbd>Control</kbd>+<kbd>Alt</kbd>+<kbd>p</kbd>
+* Linux/Windows: <kbd>Control</kbd>+<kbd>Alt</kbd>+<kbd>p</kbd>
 * Mac: <kbd>Shift</kbd>+<kbd>Command</kbd>+<kbd>p</kbd>
 
-To change shortcut: File - Preferences - Keyboard Shortcuts
+To change shortcut:
+* Linux/Windows: File > Preferences > Keyboard Shortcuts
+* Mac: Code > Preferences > Keyboard Shortcuts
 
 ## Installation
 
@@ -33,7 +35,7 @@ Go to the Marketplace link below and click the _Install_ button.
 
 1. Open a VS Code project which is a Git repository.
 1. Edit one or more files and stage them.
-1. In VS Code's Git pane, click the Auto Commit Message Prefix icon.
+1. In VS Code's Git pane, click the Auto Commit Message Prefix icon (or use the keyboard shortcut).
 1. The extension will create a prefix for the commit message for you in the commit message box.
 1. Add your commit message (the message can also be edited before you click the Auto Commit Message Prefix icon).
 1. Commit - click the tick symbol button, or use the keyboard shortcut <kbd>Control</kbd>+<kbd>Enter</kbd> / <kbd>CMD</kbd>+<kbd>Enter</kbd>.
