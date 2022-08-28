@@ -2,6 +2,9 @@
 
 All notable changes to the "auto-commit-message-prefix" extension will be documented in this file.
 
+## [0.4.2] - 2022-08-28
+- Make build pipeline "not complain" (this is for merge checks - the extension currently does not utilize automatic publishing to VS Code Marketplace)
+
 ## [0.4.0] - 2022-08-28
 - Added keyboard shortcut
 
