@@ -25,7 +25,7 @@
     "productivity",
     "jira"
   ],
-  "version": "0.3.0",
+  "version": "0.4.1",
   "engines": {
     "vscode": "^1.70.0"
   },
@@ -47,6 +47,13 @@
         }
       }
     ],
+    "keybindings": [
+      {
+        "command": "auto-commit-message-prefix.autoPrefix",
+        "key": "ctrl+alt+p",
+        "mac": "shift+cmd+p"
+      }
+    ],
     "menus": {
       "scm/title": [
         {
@@ -60,22 +67,33 @@
       "title": "Auto Commit Message Prefix",
       "properties": {
         "autocommitmessageprefix.pattern": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "default": "^[^\\/]*\\/([a-zA-Z]+\\-\\d+).*",
           "description": "Specifies the regular expression used to extract substring from branch name used for commit message prefix. The first match group will be used.\nIf no pattern is specified extension will use: ^[^\\\\/]*\\\\/([a-zA-Z]+\\\\-\\\\d+).*\nIf branch name is e.g., 'feature/JIRA-42-abc' the default pattern matches 'JIRA-42'"
         },
         "autocommitmessageprefix.prefix": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "default": null,
           "description": "Fixed prefix text added in front of the matched text from the branch name."
         },
         "autocommitmessageprefix.postfix": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "default": null,
           "description": "Fixed postfix text added after the matched text from the branch name."
         },
         "autocommitmessageprefix.spaceafter": {
-          "type": ["boolean"],
+          "type": [
+            "boolean"
+          ],
           "default": true,
           "description": "Make sure that there is a whitespace between prefix and commit message. Will not insert space if prefix ends with whitespace or commit message starts with whitespace."
         }

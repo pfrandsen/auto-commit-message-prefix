@@ -2,6 +2,9 @@
 
 All notable changes to the "auto-commit-message-prefix" extension will be documented in this file.
 
+## [0.4.0] - 2022-08-28
+- Added keyboard shortcut
+
 ## [0.3.0] - 2022-08-13
 - Documentation update
 
